@@ -4,6 +4,9 @@ class Arvore_busca:
 		self.nome = nome
 		self.filhos = filhos
 
+	def Expandir_largura(self, labirinto, fila_de_abertos, lista_de_fechados):
+		self.Expandir_profundidade(labirinto, fila_de_abertos, lista_de_fechados)	
+
 	def Expandir_backtracking(self, labirinto, lista_de_fechados, pilha_de_abertos):
 		indice_caminho = None
 		for caminho in labirinto:
@@ -122,6 +125,21 @@ class Arvore_busca:
 		for filho in self.filhos:
 			if filho.nome == "S":
 				return filho
+
+	def Adiciona_filhos_na_fila(self, fila_de_abertos, lista_de_fechados):
+		ultimo_indice = (len(self.filhos) - 1)
+		if ultimo_indice >= 0:
+			for indice in range(ultimo_indice, -1, -1):
+				filho = self.filhos[indice]
+				ja_existe = False
+				for item in fila_de_abertos:
+					if filho.nome == item.nome:
+						ja_existe = True
+				for item in lista_de_fechados:
+					if filho.nome == item.nome:
+						ja_existe = True
+				if ja_existe == False:
+					fila_de_abertos.append(filho)
 
 	def Adiciona_filhos_na_pilha(self, pilha_de_abertos, lista_de_fechados):
 		for filho in self.filhos:

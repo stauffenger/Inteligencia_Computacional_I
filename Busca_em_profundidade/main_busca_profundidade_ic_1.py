@@ -8,7 +8,7 @@ def Busca_profundidade(lista_nos):
 	resposta = None
 	lista_de_fechados = []
 	sucesso = False
-	arvore_busca_profundidade = []
+	arvore_busca_profundidade = None
 
 	labirinto_ic_1.Inicializar_pilha_abertos(lista_nos, pilha_de_abertos, arvore_busca_profundidade)
 

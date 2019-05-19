@@ -23,7 +23,7 @@ def Busca_backtracking(lista_nos):
 	impressao = {}
 	lista_auxiliar_impressao = []
 	altura = 0
-	arvore_busca_backtracking = []
+	arvore_busca_backtracking = None
 
 	labirinto_ic_1.Inicializar_pilha_abertos(lista_nos, pilha_de_abertos, arvore_busca_backtracking)
 
