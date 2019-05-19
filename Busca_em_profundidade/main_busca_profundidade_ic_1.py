@@ -1,3 +1,5 @@
+import sys
+sys.path.insert(0, "../Estruturas/")
 import labirinto_ic_1
 import arvore_busca_ic_1
 
