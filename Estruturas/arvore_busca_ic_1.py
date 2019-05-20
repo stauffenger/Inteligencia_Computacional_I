@@ -1,20 +1,17 @@
 tabulacao = "."
+from itertools import zip_longest
 class Arvore_busca:
 	def __init__(self, nome, filhos):
 		self.nome = nome
 		self.filhos = filhos
 
 	def Verifica_se_esta_nas_listas(self, nome, fila_de_abertos, lista_de_fechados):
-		ja_existe = False
-		for item in fila_de_abertos:
-			if nome == item.nome:
-				ja_existe = True
-		for item in lista_de_fechados:
-			if nome == item.nome:
-				ja_existe = True
-		if ja_existe == False:
-			return False
-		return True
+		for item_aberto, item_fechado in zip_longest(fila_de_abertos, lista_de_fechados):
+			if item_aberto and nome == item_aberto.nome:
+				return True
+			elif item_fechado and nome == item_fechado.nome:
+				return True
+		return False
 
 	def Encontra_caminho_no_labirinto(self, labirinto):
 		indice_caminho = None
