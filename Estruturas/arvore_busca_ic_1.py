@@ -1,4 +1,4 @@
-espaco = "-"
+espaco = "|"
 from itertools import zip_longest
 class ArvoreBusca:
 	def __init__(self, nome, filhos):
@@ -91,7 +91,7 @@ class ArvoreBusca:
 	def imprime_no(self, altura_atual):
 		for i in range(0, altura_atual):
 			print(espaco, end = '')
-		print(self.nome)
+		print("+" + self.nome)
 		altura_atual += 1
 		for filho in self.filhos:
 			filho.imprime_no(altura_atual)
