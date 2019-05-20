@@ -1,4 +1,5 @@
 import sys
+# Adicionando o caminho no sistema de busca por módulos
 sys.path.insert(0, "../Estruturas/")
 import labirinto_ic_1
 import arvore_busca_ic_1
