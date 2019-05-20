@@ -8,7 +8,7 @@ class Caminho:
 		self.cima = cima
 		self.direita = direita
 
-def Definir_caminho_labirinto(labirinto):
+def definir_caminho_labirinto(labirinto):
 	for no in labirinto:
 		if no.nome == "A":
 			no.baixo = labirinto[1]#i.esquerda =#i.cima = 
@@ -65,19 +65,19 @@ def Definir_caminho_labirinto(labirinto):
 		elif no.nome == "S":#i.baixo = 
 			no.esquerda = labirinto[14]#i.cima =#i.direita =
 
-def Inicializar_labirinto(labirinto):
+def inicializar_labirinto(labirinto):
 	alfabeto = ord("A")
 	for i in range(19):
 		nome = chr(alfabeto)
 		if not(nome == "K"):
 			labirinto.append(Caminho(nome, None, None, None, None))
 		alfabeto += 1
-	Definir_caminho_labirinto(labirinto)
+	definir_caminho_labirinto(labirinto)
 
-def Inicializar_pilha_abertos(labirinto, pilha_de_abertos):
-	no_raiz = arvore_busca_ic_1.Arvore_busca(labirinto[0].nome, [])
+def inicializar_pilha_abertos(labirinto, pilha_de_abertos):
+	no_raiz = arvore_busca_ic_1.ArvoreBusca(labirinto[0].nome, [])
 	pilha_de_abertos.append(no_raiz)
 
-def Inicializar_fila_abertos(labirinto, fila_de_abertos):
-	no_raiz = arvore_busca_ic_1.Arvore_busca(labirinto[0].nome, [])
+def inicializar_fila_abertos(labirinto, fila_de_abertos):
+	no_raiz = arvore_busca_ic_1.ArvoreBusca(labirinto[0].nome, [])
 	fila_de_abertos.insert(0, no_raiz)
