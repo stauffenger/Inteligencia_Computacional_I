@@ -8,7 +8,6 @@ def Busca_backtracking(lista_nos):
 	resposta = None
 	lista_de_fechados = []
 	sucesso = False
-	arvore_busca_backtracking = None
 
 	labirinto_ic_1.Inicializar_pilha_abertos(lista_nos, pilha_de_abertos)
 	arvore_busca_backtracking = pilha_de_abertos[0]

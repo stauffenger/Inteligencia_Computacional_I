@@ -88,7 +88,7 @@ class Arvore_busca:
 		altura_atual = 0
 		self.Imprime_no(altura_atual)
 
-	def Imprime_no(self, pilha_arvore, altura_atual):
+	def Imprime_no(self, altura_atual):
 		for i in range(0, altura_atual):
 			print(espaco, end = '')
 		print(self.nome)

@@ -8,7 +8,6 @@ def Busca_largura(lista_nos):
 	resposta = None
 	lista_de_fechados = []
 	sucesso = False
-	arvore_busca_largura = None
 
 	labirinto_ic_1.Inicializar_fila_abertos(lista_nos, fila_de_abertos)
 	arvore_busca_largura = fila_de_abertos[0]
