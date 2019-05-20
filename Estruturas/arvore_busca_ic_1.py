@@ -1,4 +1,4 @@
-tabulacao = "."
+espaco = "-"
 from itertools import zip_longest
 class Arvore_busca:
 	def __init__(self, nome, filhos):
@@ -71,7 +71,8 @@ class Arvore_busca:
 		ultimo_indice = (len(self.filhos) - 1)
 		if ultimo_indice >= 0:
 			for indice in range(ultimo_indice, -1, -1):
-				nome = self.filhos[indice].nome
+				filho = self.filhos[indice] 
+				nome = filho.nome
 				ja_existe = self.Verifica_se_esta_nas_listas(nome, fila_de_abertos, lista_de_fechados)
 				if ja_existe == False:
 					fila_de_abertos.append(filho)
@@ -84,47 +85,14 @@ class Arvore_busca:
 				pilha_de_abertos.append(filho)
 
 	def Imprime_arvore(self):
-		altura_atual = 1
-		altura_maxima = altura_atual
-		numero_filhos = 0
-		numero_maximo_filhos = 0
-		altura_atual, altura_maxima, numero_maximo_filhos = self.Calcula_altura(altura_atual, altura_maxima, numero_maximo_filhos)
-		altura_atual = 1
-		quantidade_folhas = 1
-		pilha_arvore = {}
-		for altura in range(1, altura_maxima+2):
-			pilha_arvore[altura] = ""
-		self.Imprime_no(pilha_arvore, altura_atual, altura_maxima, numero_filhos, numero_maximo_filhos, quantidade_folhas)
-		for altura, conteudo in pilha_arvore.items():
-			print(conteudo)
+		altura_atual = 0
+		self.Imprime_no(altura_atual)
 
-	def Imprime_no(self, pilha_arvore, altura_atual, altura_maxima, numero_filhos, numero_maximo_filhos, quantidade_folhas):
-		numero_filhos = len(self.filhos)
-		for i in range(1, (altura_maxima-altura_atual+1)*numero_maximo_filhos*(quantidade_folhas*(numero_maximo_filhos*numero_maximo_filhos))):
-			pilha_arvore[altura_atual] += tabulacao
-		if numero_filhos == 0:
-			quantidade_folhas += 1
-		pilha_arvore[altura_atual] += self.nome + str(quantidade_folhas)
+	def Imprime_no(self, pilha_arvore, altura_atual):
+		for i in range(0, altura_atual):
+			print(espaco, end = '')
+		print(self.nome)
 		altura_atual += 1
 		for filho in self.filhos:
-			quantidade_folhas = filho.Imprime_no(pilha_arvore, altura_atual, altura_maxima, numero_filhos, numero_maximo_filhos, quantidade_folhas)
-		"""if numero_filhos < numero_maximo_filhos:
-			for i in range(1, numero_maximo_filhos-numero_filhos):
-				for j in range(1, (altura_maxima-altura_atual+1)*numero_maximo_filhos*(quantidade_folhas*(numero_maximo_filhos*numero_maximo_filhos))):
-					pilha_arvore[altura_atual] += tabulacao"""
+			filho.Imprime_no(altura_atual)
 		altura_atual -= 1
-		return quantidade_folhas
-
-	def Calcula_altura(self, altura_atual, altura_maxima, numero_maximo_filhos):
-		numero_filhos = len(self.filhos)
-		if numero_filhos > numero_maximo_filhos:
-			numero_maximo_filhos = numero_filhos
-
-		if altura_atual > altura_maxima:
-			altura_maxima = altura_atual
-		altura_atual += 1
-
-		for filho in self.filhos:
-			altura_atual, altura_maxima, numero_maximo_filhos = filho.Calcula_altura(altura_atual, altura_maxima, numero_maximo_filhos)
-		altura_atual -= 1
-		return altura_atual, altura_maxima, numero_maximo_filhos

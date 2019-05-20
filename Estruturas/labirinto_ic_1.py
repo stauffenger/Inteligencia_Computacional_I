@@ -74,12 +74,10 @@ def Inicializar_labirinto(labirinto):
 		alfabeto += 1
 	Definir_caminho_labirinto(labirinto)
 
-def Inicializar_pilha_abertos(labirinto, pilha_de_abertos, arvore_busca):
+def Inicializar_pilha_abertos(labirinto, pilha_de_abertos):
 	no_raiz = arvore_busca_ic_1.Arvore_busca(labirinto[0].nome, [])
-	arvore_busca = no_raiz
 	pilha_de_abertos.append(no_raiz)
 
-def Inicializar_fila_abertos(labirinto, fila_de_abertos, arvore_busca):
+def Inicializar_fila_abertos(labirinto, fila_de_abertos):
 	no_raiz = arvore_busca_ic_1.Arvore_busca(labirinto[0].nome, [])
-	arvore_busca = no_raiz
 	fila_de_abertos.insert(0, no_raiz)

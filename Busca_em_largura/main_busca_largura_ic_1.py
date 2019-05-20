@@ -10,7 +10,8 @@ def Busca_largura(lista_nos):
 	sucesso = False
 	arvore_busca_largura = None
 
-	labirinto_ic_1.Inicializar_fila_abertos(lista_nos, fila_de_abertos, arvore_busca_largura)
+	labirinto_ic_1.Inicializar_fila_abertos(lista_nos, fila_de_abertos)
+	arvore_busca_largura = fila_de_abertos[0]
 
 	while (sucesso == False) and (fila_de_abertos != []):
 		no_candidato = fila_de_abertos.pop(0)
@@ -22,7 +23,7 @@ def Busca_largura(lista_nos):
 		else:
 			no_candidato.Adiciona_filhos_na_fila(fila_de_abertos, lista_de_fechados)
 
-	#arvore_busca_largura[0].Imprime_arvore()
+	arvore_busca_largura.Imprime_arvore()
 	return sucesso, resposta
 
 labirinto = []

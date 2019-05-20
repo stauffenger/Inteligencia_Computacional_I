@@ -8,9 +8,9 @@ def Busca_profundidade(lista_nos):
 	resposta = None
 	lista_de_fechados = []
 	sucesso = False
-	arvore_busca_profundidade = None
 
-	labirinto_ic_1.Inicializar_pilha_abertos(lista_nos, pilha_de_abertos, arvore_busca_profundidade)
+	labirinto_ic_1.Inicializar_pilha_abertos(lista_nos, pilha_de_abertos)
+	arvore_busca_profundidade = pilha_de_abertos[0]
 
 	while (not sucesso) and (pilha_de_abertos != []):
 		no_candidato = pilha_de_abertos.pop()
@@ -22,7 +22,7 @@ def Busca_profundidade(lista_nos):
 		else:
 			no_candidato.Adiciona_filhos_na_pilha(pilha_de_abertos, lista_de_fechados)
 
-	#arvore_busca_profundidade[0].Imprime_arvore()
+	arvore_busca_profundidade.Imprime_arvore()
 	return sucesso, resposta
 
 labirinto = []
