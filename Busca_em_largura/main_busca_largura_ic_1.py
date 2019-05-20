@@ -21,8 +21,8 @@ def Busca_largura(lista_nos):
 			resposta = no_candidato.No_solucao()
 		else:
 			no_candidato.Adiciona_filhos_na_fila(fila_de_abertos, lista_de_fechados)
-		print(no_candidato.nome),
-	print(resposta.nome)
+
+	#arvore_busca_largura[0].Imprime_arvore()
 	return sucesso, resposta
 
 labirinto = []

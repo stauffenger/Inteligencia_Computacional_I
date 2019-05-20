@@ -4,6 +4,18 @@ class Arvore_busca:
 		self.nome = nome
 		self.filhos = filhos
 
+	def Verifica_se_esta_nas_listas(self, nome, fila_de_abertos, lista_de_fechados):
+		ja_existe = False
+		for item in fila_de_abertos:
+			if nome == item.nome:
+				ja_existe = True
+		for item in lista_de_fechados:
+			if nome == item.nome:
+				ja_existe = True
+		if ja_existe == False:
+			return False
+		return True
+
 	def Expandir_largura(self, labirinto, fila_de_abertos, lista_de_fechados):
 		self.Expandir_profundidade(labirinto, fila_de_abertos, lista_de_fechados)	
 
@@ -16,48 +28,28 @@ class Arvore_busca:
 		caminho = labirinto[indice_caminho]
 
 		if caminho.baixo is not None:
-			ja_existe = False
-			for item in pilha_de_abertos:
-				if caminho.baixo.nome == item.nome:
-					ja_existe = True
-			for item in lista_de_fechados:
-				if caminho.baixo.nome == item.nome:
-					ja_existe = True
+			nome = caminho.baixo.nome
+			ja_existe = self.Verifica_se_esta_nas_listas(nome, pilha_de_abertos, lista_de_fechados)
 			if ja_existe == False:
-				self.filhos.append(Arvore_busca(caminho.baixo.nome, []))
+				self.filhos.append(Arvore_busca(nome, []))
 				return True
 		if caminho.esquerda is not None:
-			ja_existe = False
-			for item in pilha_de_abertos:
-				if caminho.esquerda.nome == item.nome:
-					ja_existe = True
-			for item in lista_de_fechados:
-				if caminho.esquerda.nome == item.nome:
-					ja_existe = True
+			nome = caminho.esquerda.nome
+			ja_existe = self.Verifica_se_esta_nas_listas(nome, pilha_de_abertos, lista_de_fechados)
 			if ja_existe == False:
-				self.filhos.append(Arvore_busca(caminho.esquerda.nome, []))
+				self.filhos.append(Arvore_busca(nome, []))
 				return True
 		if caminho.cima is not None:
-			ja_existe = False
-			for item in pilha_de_abertos:
-				if caminho.cima.nome == item.nome:
-					ja_existe = True
-			for item in lista_de_fechados:
-				if caminho.cima.nome == item.nome:
-					ja_existe = True
+			nome = caminho.cima.nome
+			ja_existe = self.Verifica_se_esta_nas_listas(nome, pilha_de_abertos, lista_de_fechados)
 			if ja_existe == False:
-				self.filhos.append(Arvore_busca(caminho.cima.nome, []))
+				self.filhos.append(Arvore_busca(nome, []))
 				return True
 		if caminho.direita is not None:
-			ja_existe = False
-			for item in pilha_de_abertos:
-				if caminho.direita.nome == item.nome:
-					ja_existe = True
-			for item in lista_de_fechados:
-				if caminho.direita.nome == item.nome:
-					ja_existe = True
+			nome = caminho.direita.nome
+			ja_existe = self.Verifica_se_esta_nas_listas(nome, pilha_de_abertos, lista_de_fechados)
 			if ja_existe == False:
-				self.filhos.append(Arvore_busca(caminho.direita.nome, []))
+				self.filhos.append(Arvore_busca(nome, []))
 				return True
 		return False
 
@@ -72,46 +64,22 @@ class Arvore_busca:
 		if self.filhos == []:
 			if caminho.direita is not None:
 				nome = caminho.direita.nome
-				ja_existe = False
-				for item in pilha_de_abertos:
-					if nome == item.nome:
-						ja_existe = True
-				for item in lista_de_fechados:
-					if nome == item.nome:
-						ja_existe = True
+				ja_existe = self.Verifica_se_esta_nas_listas(nome, pilha_de_abertos, lista_de_fechados)
 				if ja_existe == False:
 					self.filhos.append(Arvore_busca(nome, []))
 			if caminho.cima is not None:
 				nome = caminho.cima.nome
-				ja_existe = False
-				for item in pilha_de_abertos:
-					if nome == item.nome:
-						ja_existe = True
-				for item in lista_de_fechados:
-					if nome == item.nome:
-						ja_existe = True
+				ja_existe = self.Verifica_se_esta_nas_listas(nome, pilha_de_abertos, lista_de_fechados)
 				if ja_existe == False:
 					self.filhos.append(Arvore_busca(nome, []))
 			if caminho.esquerda is not None:
 				nome = caminho.esquerda.nome
-				ja_existe = False
-				for item in pilha_de_abertos:
-					if nome == item.nome:
-						ja_existe = True
-				for item in lista_de_fechados:
-					if nome == item.nome:
-						ja_existe = True
+				ja_existe = self.Verifica_se_esta_nas_listas(nome, pilha_de_abertos, lista_de_fechados)
 				if ja_existe == False:
 					self.filhos.append(Arvore_busca(nome, []))
 			if caminho.baixo is not None:
 				nome = caminho.baixo.nome
-				ja_existe = False
-				for item in pilha_de_abertos:
-					if nome == item.nome:
-						ja_existe = True
-				for item in lista_de_fechados:
-					if nome == item.nome:
-						ja_existe = True
+				ja_existe = self.Verifica_se_esta_nas_listas(nome, pilha_de_abertos, lista_de_fechados)
 				if ja_existe == False:
 					self.filhos.append(Arvore_busca(nome, []))
 
@@ -130,26 +98,15 @@ class Arvore_busca:
 		ultimo_indice = (len(self.filhos) - 1)
 		if ultimo_indice >= 0:
 			for indice in range(ultimo_indice, -1, -1):
-				filho = self.filhos[indice]
-				ja_existe = False
-				for item in fila_de_abertos:
-					if filho.nome == item.nome:
-						ja_existe = True
-				for item in lista_de_fechados:
-					if filho.nome == item.nome:
-						ja_existe = True
+				nome = self.filhos[indice].nome
+				ja_existe = self.Verifica_se_esta_nas_listas(nome, fila_de_abertos, lista_de_fechados)
 				if ja_existe == False:
 					fila_de_abertos.append(filho)
 
 	def Adiciona_filhos_na_pilha(self, pilha_de_abertos, lista_de_fechados):
 		for filho in self.filhos:
-			ja_existe = False
-			for item in pilha_de_abertos:
-				if filho.nome == item.nome:
-					ja_existe = True
-			for item in lista_de_fechados:
-				if filho.nome == item.nome:
-					ja_existe = True
+			nome = filho.nome
+			ja_existe = self.Verifica_se_esta_nas_listas(nome, pilha_de_abertos, lista_de_fechados)
 			if ja_existe == False:
 				pilha_de_abertos.append(filho)
 
