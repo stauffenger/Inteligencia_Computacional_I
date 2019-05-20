@@ -16,72 +16,48 @@ class Arvore_busca:
 			return False
 		return True
 
-	def Expandir_largura(self, labirinto, fila_de_abertos, lista_de_fechados):
-		self.Expandir_profundidade(labirinto, fila_de_abertos, lista_de_fechados)	
-
-	def Expandir_backtracking(self, labirinto, lista_de_fechados, pilha_de_abertos):
+	def Encontra_caminho_no_labirinto(self, labirinto):
 		indice_caminho = None
 		for caminho in labirinto:
 			if caminho.nome == self.nome:
 				indice_caminho = labirinto.index(caminho)
 		
 		caminho = labirinto[indice_caminho]
+		return caminho
 
-		if caminho.baixo is not None:
-			nome = caminho.baixo.nome
-			ja_existe = self.Verifica_se_esta_nas_listas(nome, pilha_de_abertos, lista_de_fechados)
-			if ja_existe == False:
-				self.filhos.append(Arvore_busca(nome, []))
-				return True
-		if caminho.esquerda is not None:
-			nome = caminho.esquerda.nome
-			ja_existe = self.Verifica_se_esta_nas_listas(nome, pilha_de_abertos, lista_de_fechados)
-			if ja_existe == False:
-				self.filhos.append(Arvore_busca(nome, []))
-				return True
-		if caminho.cima is not None:
-			nome = caminho.cima.nome
-			ja_existe = self.Verifica_se_esta_nas_listas(nome, pilha_de_abertos, lista_de_fechados)
-			if ja_existe == False:
-				self.filhos.append(Arvore_busca(nome, []))
-				return True
-		if caminho.direita is not None:
-			nome = caminho.direita.nome
+	def Expandir_no(self, caminho, pilha_de_abertos, lista_de_fechados):
+		if caminho is not None:
+			nome = caminho.nome
 			ja_existe = self.Verifica_se_esta_nas_listas(nome, pilha_de_abertos, lista_de_fechados)
 			if ja_existe == False:
 				self.filhos.append(Arvore_busca(nome, []))
 				return True
 		return False
 
+	def Expandir_backtracking(self, labirinto, lista_de_fechados, pilha_de_abertos):
+		caminho = self.Encontra_caminho_no_labirinto(labirinto)
+
+		if self.Expandir_no(caminho.baixo, pilha_de_abertos, lista_de_fechados):
+			return True
+		if self.Expandir_no(caminho.esquerda, pilha_de_abertos, lista_de_fechados):
+			return True
+		if self.Expandir_no(caminho.cima, pilha_de_abertos, lista_de_fechados):
+			return True
+		if self.Expandir_no(caminho.direita, pilha_de_abertos, lista_de_fechados):
+			return True
+		return False
+
 	def Expandir_profundidade(self, labirinto, pilha_de_abertos, lista_de_fechados):
-		indice_caminho = None
-		for caminho in labirinto:
-			if caminho.nome == self.nome:
-				indice_caminho = labirinto.index(caminho)
-		
-		caminho = labirinto[indice_caminho]
-		nome = None
+		caminho = self.Encontra_caminho_no_labirinto(labirinto)
+
 		if self.filhos == []:
-			if caminho.direita is not None:
-				nome = caminho.direita.nome
-				ja_existe = self.Verifica_se_esta_nas_listas(nome, pilha_de_abertos, lista_de_fechados)
-				if ja_existe == False:
-					self.filhos.append(Arvore_busca(nome, []))
-			if caminho.cima is not None:
-				nome = caminho.cima.nome
-				ja_existe = self.Verifica_se_esta_nas_listas(nome, pilha_de_abertos, lista_de_fechados)
-				if ja_existe == False:
-					self.filhos.append(Arvore_busca(nome, []))
-			if caminho.esquerda is not None:
-				nome = caminho.esquerda.nome
-				ja_existe = self.Verifica_se_esta_nas_listas(nome, pilha_de_abertos, lista_de_fechados)
-				if ja_existe == False:
-					self.filhos.append(Arvore_busca(nome, []))
-			if caminho.baixo is not None:
-				nome = caminho.baixo.nome
-				ja_existe = self.Verifica_se_esta_nas_listas(nome, pilha_de_abertos, lista_de_fechados)
-				if ja_existe == False:
-					self.filhos.append(Arvore_busca(nome, []))
+			self.Expandir_no(caminho.direita, pilha_de_abertos, lista_de_fechados)
+			self.Expandir_no(caminho.cima, pilha_de_abertos, lista_de_fechados)
+			self.Expandir_no(caminho.esquerda, pilha_de_abertos, lista_de_fechados)
+			self.Expandir_no(caminho.baixo, pilha_de_abertos, lista_de_fechados)
+
+	def Expandir_largura(self, labirinto, fila_de_abertos, lista_de_fechados):
+		self.Expandir_profundidade(labirinto, fila_de_abertos, lista_de_fechados)	
 
 	def Filho_eh_solucao(self):
 		for filho in self.filhos:
