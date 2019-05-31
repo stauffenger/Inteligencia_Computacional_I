@@ -1,9 +1,10 @@
-espaco = "|"
+espaco = "| "
 from itertools import zip_longest
 class ArvoreBusca:
-	def __init__(self, nome, filhos):
+	def __init__(self, nome, filhos, custo_parcial):
 		self.nome = nome
 		self.filhos = filhos
+		self.custo_parcial = custo_parcial
 
 	def verifica_se_esta_nas_listas(self, nome, fila_de_abertos, lista_de_fechados):
 		for item_aberto, item_fechado in zip_longest(fila_de_abertos, lista_de_fechados):
@@ -23,11 +24,11 @@ class ArvoreBusca:
 		return caminho
 
 	def expandir_no(self, caminho, pilha_de_abertos, lista_de_fechados):
-		if caminho is not None:
-			nome = caminho.nome
+		if caminho != []:
+			nome = caminho[0].nome
 			ja_existe = self.verifica_se_esta_nas_listas(nome, pilha_de_abertos, lista_de_fechados)
 			if ja_existe == False:
-				self.filhos.append(ArvoreBusca(nome, []))
+				self.filhos.append(ArvoreBusca(nome, [], None))
 				return True
 		return False
 
@@ -65,6 +66,7 @@ class ArvoreBusca:
 	def no_solucao(self):
 		for filho in self.filhos:
 			if filho.nome == "S":
+				filho.nome += " <-- Solução"
 				return filho
 
 	def adiciona_filhos_na_fila(self, fila_de_abertos, lista_de_fechados):
@@ -91,7 +93,7 @@ class ArvoreBusca:
 	def imprime_no(self, altura_atual):
 		for i in range(0, altura_atual):
 			print(espaco, end = '')
-		print("+" + self.nome)
+		print("|-+" + self.nome)
 		altura_atual += 1
 		for filho in self.filhos:
 			filho.imprime_no(altura_atual)
