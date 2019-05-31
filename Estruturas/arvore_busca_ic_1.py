@@ -1,5 +1,6 @@
 espaco = "| "
 from itertools import zip_longest
+
 class ArvoreBusca:
 	def __init__(self, nome, filhos, custo_parcial):
 		self.nome = nome
@@ -66,7 +67,6 @@ class ArvoreBusca:
 	def no_solucao(self):
 		for filho in self.filhos:
 			if filho.nome == "S":
-				filho.nome += " <-- Solução"
 				return filho
 
 	def adiciona_filhos_na_fila(self, fila_de_abertos, lista_de_fechados):
@@ -93,7 +93,10 @@ class ArvoreBusca:
 	def imprime_no(self, altura_atual):
 		for i in range(0, altura_atual):
 			print(espaco, end = '')
-		print("|-+" + self.nome)
+		if self.nome == "S":
+			print("|-+" + self.nome + " <-- Solução")
+		else:
+			print("|-+" + self.nome)
 		altura_atual += 1
 		for filho in self.filhos:
 			filho.imprime_no(altura_atual)
