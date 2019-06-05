@@ -11,7 +11,7 @@ class ArvoreBusca:
 		for item_aberto, item_fechado in zip_longest(fila_de_abertos, lista_de_fechados):
 			if item_aberto and nome == item_aberto.nome:
 				return True
-			elif item_fechado and nome == item_fechado.nome:
+			if item_fechado and nome == item_fechado.nome:
 				return True
 		return False
 
