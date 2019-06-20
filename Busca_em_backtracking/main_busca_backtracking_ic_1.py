@@ -10,7 +10,7 @@ def busca_backtracking(lista_nos):
 	lista_de_fechados = []
 	sucesso = False
 
-	labirinto_ic_1.inicializar_pilha_abertos(lista_nos, pilha_de_abertos)
+	labirinto_ic_1.inicializar_pilha_abertos_sem_custo(lista_nos, pilha_de_abertos)
 	arvore_busca_backtracking = pilha_de_abertos[0]
 
 	while (not sucesso) and (pilha_de_abertos != []):
@@ -29,6 +29,6 @@ def busca_backtracking(lista_nos):
 	return sucesso, resposta
 
 labirinto = []
-labirinto_ic_1.inicializar_labirinto(labirinto)
+labirinto_ic_1.inicializar_labirinto_sem_custo(labirinto)
 sucesso, resposta = busca_backtracking(labirinto)
 print(sucesso, resposta.nome)

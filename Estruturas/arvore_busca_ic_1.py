@@ -25,8 +25,8 @@ class ArvoreBusca:
 		return caminho
 
 	def expandir_no(self, caminho, pilha_de_abertos, lista_de_fechados):
-		if caminho != []:
-			nome = caminho[0].nome
+		if caminho is not None:
+			nome = caminho.nome
 			ja_existe = self.verifica_se_esta_nas_listas(nome, pilha_de_abertos, lista_de_fechados)
 			if ja_existe == False:
 				self.filhos.append(ArvoreBusca(nome, [], None))
