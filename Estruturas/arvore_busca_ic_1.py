@@ -15,9 +15,9 @@ class ArvoreBusca:
 				return True
 		return False
 
-	def expandir_no(self, caminho, pilha_de_abertos, lista_de_fechados):
-		if caminho is not None:
-			nome = caminho.nome
+	def expandir_no(self, no_grafo_labirinto, pilha_de_abertos, lista_de_fechados):
+		if no_grafo_labirinto is not None:
+			nome = no_grafo_labirinto.nome
 			ja_existe = self.verifica_se_esta_nas_listas(nome, pilha_de_abertos, lista_de_fechados)
 			if ja_existe == False:
 				self.filhos.append(ArvoreBusca(nome, [], None))
@@ -25,26 +25,26 @@ class ArvoreBusca:
 		return False
 
 	def expandir_backtracking(self, labirinto, lista_de_fechados, pilha_de_abertos):
-		caminho = labirinto[self.nome]
+		no_grafo_labirinto = labirinto[self.nome]
 
-		if self.expandir_no(caminho.baixo, pilha_de_abertos, lista_de_fechados):
+		if self.expandir_no(no_grafo_labirinto.baixo, pilha_de_abertos, lista_de_fechados):
 			return True
-		if self.expandir_no(caminho.esquerda, pilha_de_abertos, lista_de_fechados):
+		if self.expandir_no(no_grafo_labirinto.esquerda, pilha_de_abertos, lista_de_fechados):
 			return True
-		if self.expandir_no(caminho.cima, pilha_de_abertos, lista_de_fechados):
+		if self.expandir_no(no_grafo_labirinto.cima, pilha_de_abertos, lista_de_fechados):
 			return True
-		if self.expandir_no(caminho.direita, pilha_de_abertos, lista_de_fechados):
+		if self.expandir_no(no_grafo_labirinto.direita, pilha_de_abertos, lista_de_fechados):
 			return True
 		return False
 
 	def expandir_profundidade(self, labirinto, pilha_de_abertos, lista_de_fechados):
-		caminho = labirinto[self.nome]
+		no_grafo_labirinto = labirinto[self.nome]
 
 		if self.filhos == []:
-			self.expandir_no(caminho.direita, pilha_de_abertos, lista_de_fechados)
-			self.expandir_no(caminho.cima, pilha_de_abertos, lista_de_fechados)
-			self.expandir_no(caminho.esquerda, pilha_de_abertos, lista_de_fechados)
-			self.expandir_no(caminho.baixo, pilha_de_abertos, lista_de_fechados)
+			self.expandir_no(no_grafo_labirinto.direita, pilha_de_abertos, lista_de_fechados)
+			self.expandir_no(no_grafo_labirinto.cima, pilha_de_abertos, lista_de_fechados)
+			self.expandir_no(no_grafo_labirinto.esquerda, pilha_de_abertos, lista_de_fechados)
+			self.expandir_no(no_grafo_labirinto.baixo, pilha_de_abertos, lista_de_fechados)
 
 	def expandir_largura(self, labirinto, fila_de_abertos, lista_de_fechados):
 		self.expandir_profundidade(labirinto, fila_de_abertos, lista_de_fechados)	

@@ -1,7 +1,7 @@
 import sys
 # adicionando o caminho no sistema de busca por módulos
 sys.path.insert(0, "../Estruturas/")
-import labirinto_ic_1
+import grafo_ic_1
 import arvore_busca_ic_1
 
 def busca_largura(lista_nos):
@@ -10,7 +10,7 @@ def busca_largura(lista_nos):
 	lista_de_fechados = []
 	sucesso = False
 
-	labirinto_ic_1.inicializar_fila_abertos_sem_custo(lista_nos, fila_de_abertos)
+	grafo_ic_1.inicializar_fila_abertos_sem_custo(lista_nos, fila_de_abertos)
 	arvore_busca_largura = fila_de_abertos[0]
 
 	while (sucesso == False) and (fila_de_abertos != []):
@@ -27,6 +27,6 @@ def busca_largura(lista_nos):
 	return sucesso, resposta
 
 labirinto = {}
-labirinto_ic_1.inicializar_labirinto_sem_custo(labirinto)
+grafo_ic_1.inicializar_grafo_sem_custo(labirinto, grafo_ic_1.TipoDeGrafo.MODELO_SEM_CUSTO_1)
 sucesso, resposta = busca_largura(labirinto)
 print(sucesso, resposta.nome)
