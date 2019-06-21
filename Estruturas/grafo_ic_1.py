@@ -14,7 +14,7 @@ class NoGrafoLabirinto:
 		self.cima = None
 		self.direita = None
 
-	def definir_ligacoes_sem_custo(self, baixo, esquerda, cima, direita):
+	def definir_ligacoes_labirinto(self, baixo, esquerda, cima, direita):
 		self.baixo = baixo	
 		self.esquerda = esquerda
 		self.cima = cima
@@ -30,41 +30,41 @@ def definir_caminho_do_grafo_sem_custo(grafo, tipo_de_grafo):
 	if tipo_de_grafo == TipoDeGrafo.MODELO_SEM_CUSTO_1:
 		for nome, no in grafo.items():
 			if nome == "A":
-				no.definir_ligacoes_sem_custo(grafo["B"], None, None, grafo["E"])
+				no.definir_ligacoes_labirinto(grafo["B"], None, None, grafo["E"])
 			elif nome == "B":
-				no.definir_ligacoes_sem_custo(grafo["C"], None, grafo["A"], grafo["F"])
+				no.definir_ligacoes_labirinto(grafo["C"], None, grafo["A"], grafo["F"])
 			elif nome == "C":
-				no.definir_ligacoes_sem_custo(None, None, grafo["B"], None)
+				no.definir_ligacoes_labirinto(None, None, grafo["B"], None)
 			elif nome == "D":
-				no.definir_ligacoes_sem_custo(None, None, None, grafo["H"])
+				no.definir_ligacoes_labirinto(None, None, None, grafo["H"])
 			elif nome == "E":
-				no.definir_ligacoes_sem_custo(None, grafo["A"], None, grafo["I"])
+				no.definir_ligacoes_labirinto(None, grafo["A"], None, grafo["I"])
 			elif nome == "F":
-				no.definir_ligacoes_sem_custo(grafo["G"], grafo["B"], None, None)
+				no.definir_ligacoes_labirinto(grafo["G"], grafo["B"], None, None)
 			elif nome == "G":
-				no.definir_ligacoes_sem_custo(grafo["H"], None, grafo["F"], grafo["L"])
+				no.definir_ligacoes_labirinto(grafo["H"], None, grafo["F"], grafo["L"])
 			elif nome == "H":
-				no.definir_ligacoes_sem_custo(None, grafo["D"], grafo["G"], None)
+				no.definir_ligacoes_labirinto(None, grafo["D"], grafo["G"], None)
 			elif nome == "I":
-				no.definir_ligacoes_sem_custo(grafo["J"], grafo["E"], None, grafo["N"])
+				no.definir_ligacoes_labirinto(grafo["J"], grafo["E"], None, grafo["N"])
 			elif nome == "J":
-				no.definir_ligacoes_sem_custo(None, None, grafo["I"], grafo["O"])
+				no.definir_ligacoes_labirinto(None, None, grafo["I"], grafo["O"])
 			elif nome == "L":
-				no.definir_ligacoes_sem_custo(grafo["M"], grafo["G"], None, None)
+				no.definir_ligacoes_labirinto(grafo["M"], grafo["G"], None, None)
 			elif nome == "M":
-				no.definir_ligacoes_sem_custo(None, None, grafo["L"], grafo["Q"])
+				no.definir_ligacoes_labirinto(None, None, grafo["L"], grafo["Q"])
 			elif nome == "N":
-				no.definir_ligacoes_sem_custo(None, grafo["I"], None, None)
+				no.definir_ligacoes_labirinto(None, grafo["I"], None, None)
 			elif nome == "O":
-				no.definir_ligacoes_sem_custo(grafo["P"], grafo["J"], None, grafo["R"])
+				no.definir_ligacoes_labirinto(grafo["P"], grafo["J"], None, grafo["R"])
 			elif nome == "P":
-				no.definir_ligacoes_sem_custo(grafo["Q"], None, grafo["O"], grafo["S"])
+				no.definir_ligacoes_labirinto(grafo["Q"], None, grafo["O"], grafo["S"])
 			elif nome == "Q":
-				no.definir_ligacoes_sem_custo(None, grafo["M"], grafo["P"], None)
+				no.definir_ligacoes_labirinto(None, grafo["M"], grafo["P"], None)
 			elif nome == "R":
-				no.definir_ligacoes_sem_custo(None, grafo["O"], None, None)
+				no.definir_ligacoes_labirinto(None, grafo["O"], None, None)
 			elif nome == "S":
-				no.definir_ligacoes_sem_custo(None, grafo["P"], None, None)
+				no.definir_ligacoes_labirinto(None, grafo["P"], None, None)
 
 def inicializar_grafo_sem_custo(grafo, tipo_de_grafo):
 	if tipo_de_grafo == TipoDeGrafo.MODELO_SEM_CUSTO_1:
