@@ -28,7 +28,7 @@ def busca_backtracking(lista_nos):
 	arvore_busca_backtracking.imprime_arvore()
 	return sucesso, resposta
 
-labirinto = []
+labirinto = {}
 labirinto_ic_1.inicializar_labirinto_sem_custo(labirinto)
 sucesso, resposta = busca_backtracking(labirinto)
 print(sucesso, resposta.nome)

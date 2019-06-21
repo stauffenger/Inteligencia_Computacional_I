@@ -26,7 +26,7 @@ def busca_largura(lista_nos):
 	arvore_busca_largura.imprime_arvore()
 	return sucesso, resposta
 
-labirinto = []
+labirinto = {}
 labirinto_ic_1.inicializar_labirinto_sem_custo(labirinto)
 sucesso, resposta = busca_largura(labirinto)
 print(sucesso, resposta.nome)

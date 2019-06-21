@@ -15,15 +15,6 @@ class ArvoreBusca:
 				return True
 		return False
 
-	def encontra_caminho_no_labirinto(self, labirinto):
-		indice_caminho = None
-		for caminho in labirinto:
-			if caminho.nome == self.nome:
-				indice_caminho = labirinto.index(caminho)
-		
-		caminho = labirinto[indice_caminho]
-		return caminho
-
 	def expandir_no(self, caminho, pilha_de_abertos, lista_de_fechados):
 		if caminho is not None:
 			nome = caminho.nome
@@ -34,7 +25,7 @@ class ArvoreBusca:
 		return False
 
 	def expandir_backtracking(self, labirinto, lista_de_fechados, pilha_de_abertos):
-		caminho = self.encontra_caminho_no_labirinto(labirinto)
+		caminho = labirinto[self.nome]
 
 		if self.expandir_no(caminho.baixo, pilha_de_abertos, lista_de_fechados):
 			return True
@@ -47,7 +38,7 @@ class ArvoreBusca:
 		return False
 
 	def expandir_profundidade(self, labirinto, pilha_de_abertos, lista_de_fechados):
-		caminho = self.encontra_caminho_no_labirinto(labirinto)
+		caminho = labirinto[self.nome]
 
 		if self.filhos == []:
 			self.expandir_no(caminho.direita, pilha_de_abertos, lista_de_fechados)
