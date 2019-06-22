@@ -58,7 +58,14 @@ class ArvoreBusca:
 
 		if self.filhos == []:
 			for no, custo in no_grafo.lista_de_ligacoes:
-				self.expandir_no(no, custo, [], lista_de_fechados)
+				if self.verifica_se_esta_nas_listas(no.nome, lista_de_abertos, []):
+					for item in lista_de_abertos:
+						if no.nome == item.nome:
+							if self.custo_parcial+custo < item.custo_parcial:
+								lista_de_abertos.remove(item)
+								self.expandir_no(no, custo, [], lista_de_fechados)
+				else:
+					self.expandir_no(no, custo, [], lista_de_fechados)
 
 	def definir_solucao(self, tipo_de_grafo):
 		solucao = ""
