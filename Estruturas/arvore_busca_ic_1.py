@@ -62,8 +62,12 @@ class ArvoreBusca:
 					for item in lista_de_abertos:
 						if no.nome == item.nome:
 							if self.custo_parcial+custo < item.custo_parcial:
-								lista_de_abertos.remove(item)
-								self.expandir_no(no, custo, [], lista_de_fechados)
+								item_a_ser_fechado = lista_de_abertos.remove(item)
+								lista_de_fechados.append(item_a_ser_fechado)
+								custo_parcial = self.custo_parcial + custo
+								novo_no = ArvoreBusca(no.nome, [], custo_parcial)
+								self.filhos.append(novo_no)
+								lista_de_abertos.append(novo_no)
 				else:
 					self.expandir_no(no, custo, [], lista_de_fechados)
 

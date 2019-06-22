@@ -13,7 +13,7 @@ def busca_ordenada(lista_nos, tipo_de_grafo):
 	grafo_ic_1.inicializar_fila_abertos(lista_nos, lista_de_abertos)
 	arvore_busca_ordenada = lista_de_abertos[0]
 
-	while (sucesso == False) and (lista_de_abertos != []):
+	while  (lista_de_abertos != []):
 		no_candidato = arvore_busca_ic_1.remove_elemento_de_menor_custo_da_lista(lista_de_abertos)
 		lista_de_fechados.append(no_candidato)
 		no_candidato.expandir_ordenada(lista_nos, lista_de_abertos, lista_de_fechados)
