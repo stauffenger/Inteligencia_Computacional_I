@@ -23,7 +23,7 @@ def busca_profundidade(lista_nos, tipo_de_grafo):
 		else:
 			no_candidato.adiciona_filhos_na_pilha_de_abertos(pilha_de_abertos, lista_de_fechados)
 
-	arvore_busca_profundidade.imprime_arvore(tipo_de_grafo)
+	arvore_busca_profundidade.imprime_arvore(tipo_de_grafo, resposta)
 	return sucesso, resposta
 
 labirinto = {}

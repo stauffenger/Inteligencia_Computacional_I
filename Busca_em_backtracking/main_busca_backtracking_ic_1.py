@@ -25,7 +25,7 @@ def busca_backtracking(lista_nos, tipo_de_grafo):
 		else:
 			lista_de_fechados.append(pilha_de_abertos.pop())	 
 
-	arvore_busca_backtracking.imprime_arvore(tipo_de_grafo)
+	arvore_busca_backtracking.imprime_arvore(tipo_de_grafo, resposta)
 	return sucesso, resposta
 
 labirinto = {}

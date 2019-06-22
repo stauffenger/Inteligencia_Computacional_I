@@ -8,13 +8,14 @@ class ArvoreBusca:
 		self.filhos = filhos
 		self.custo_parcial = custo_parcial
 
-	def verifica_se_esta_nas_listas(self, nome, fila_de_abertos, lista_de_fechados):
-		for item_aberto, item_fechado in zip_longest(fila_de_abertos, lista_de_fechados):
-			if item_aberto and nome == item_aberto.nome:
-				return True
-			if item_fechado and nome == item_fechado.nome:
+	def verifica_se_esta_na_lista(self, nome, lista):
+		for item in lista:
+			if item and item.nome == nome:
 				return True
 		return False
+
+	def verifica_se_esta_nas_listas(self, nome, fila_de_abertos, lista_de_fechados):
+		return self.verifica_se_esta_na_lista(nome, fila_de_abertos) or self.verifica_se_esta_na_lista(nome, lista_de_fechados)
 
 	def expandir_no(self, no_grafo, custo, pilha_de_abertos, lista_de_fechados):
 		if no_grafo is not None:
@@ -58,26 +59,33 @@ class ArvoreBusca:
 
 		if self.filhos == []:
 			for no, custo in no_grafo.lista_de_ligacoes:
-				if self.verifica_se_esta_nas_listas(no.nome, lista_de_abertos, []):
-					for item in lista_de_abertos:
-						if no.nome == item.nome:
-							custo_parcial = self.custo_parcial + custo
-							novo_no = ArvoreBusca(no.nome, [], custo_parcial)
-							if self.custo_parcial+custo < item.custo_parcial:
-								item_a_ser_fechado = lista_de_abertos.remove(item)
-								lista_de_abertos.append(novo_no)
-								self.filhos.append(novo_no)
-							else:
-								item_a_ser_fechado = novo_no
-								ja_existe = False
-								for filho in self.filhos:
-									if filho.nome == novo_no.nome:
-										ja_existe = True
-								if ja_existe == False:
-									self.filhos.append(novo_no)
-							lista_de_fechados.append(item_a_ser_fechado)
+				if self.verifica_se_esta_na_lista(no.nome, lista_de_abertos):
+					self.expandir_no_ordenado(no, custo, lista_de_abertos, lista_de_fechados)
 				else:
 					self.expandir_no(no, custo, [], lista_de_fechados)
+
+	def expandir_no_ordenado(self, no_grafo, custo, lista_de_abertos, lista_de_fechados):
+		for no_aberto in lista_de_abertos:
+			if no_grafo.nome == no_aberto.nome:
+				custo_parcial_novo_no = self.custo_parcial + custo
+				novo_no = ArvoreBusca(no_grafo.nome, [], custo_parcial_novo_no)
+				item_a_ser_fechado = (
+						self.mantem_item_de_menor_custo_e_retorna_o_de_maior_custo(
+							novo_no, no_aberto, lista_de_abertos)
+					)
+				lista_de_fechados.append(item_a_ser_fechado)
+
+	def mantem_item_de_menor_custo_e_retorna_o_de_maior_custo(self, novo_no, no_antigo, lista):
+		if novo_no.custo_parcial < no_antigo.custo_parcial:
+			no_com_maior_custo = lista.remove(no_antigo)
+			lista.append(novo_no)
+			self.filhos.append(novo_no)
+		else:
+			no_com_maior_custo = novo_no
+			ja_existe = self.verifica_se_esta_na_lista(novo_no.nome, self.filhos)
+			if ja_existe == False:
+				self.filhos.append(novo_no)
+		return no_com_maior_custo
 
 	def definir_solucao(self, tipo_de_grafo):
 		solucao = ""
@@ -127,25 +135,25 @@ class ArvoreBusca:
 			if ja_existe == False:
 				pilha_de_abertos.append(filho)
 
-	def imprime_arvore(self, tipo_de_grafo):
+	def imprime_arvore(self, tipo_de_grafo, resposta):
 		altura_atual = 0
 		solucao = self.definir_solucao(tipo_de_grafo)
 		if tipo_de_grafo == grafo_ic_1.TipoDeGrafo.MODELO_SEM_CUSTO_1:
 			self.imprime_no(altura_atual, solucao)
 		elif tipo_de_grafo == grafo_ic_1.TipoDeGrafo.MODELO_COM_CUSTO_1 or (
 				tipo_de_grafo == grafo_ic_1.TipoDeGrafo.MODELO_COM_CUSTO_2):
-			self.imprime_no_com_custo(altura_atual, solucao)
+			self.imprime_no_com_custo(altura_atual, solucao, resposta)
 
-	def imprime_no_com_custo(self, altura_atual, solucao):
+	def imprime_no_com_custo(self, altura_atual, solucao, resposta):
 		for i in range(0, altura_atual):
 			print(espaco, end = '')
-		if self.nome == solucao:
-			print("|-+" + self.nome + "-", self.custo_parcial, " <-- Solução")
+		if self.nome == solucao and self.custo_parcial == resposta.custo_parcial:
+			print("|-+" + self.nome + "_[" + str(self.custo_parcial) + "] <-- Resposta")
 		else:
-			print("|-+" + self.nome + "-", self.custo_parcial)
+			print("|-+" + self.nome + "_[" + str(self.custo_parcial) + "]")
 		altura_atual += 1
 		for filho in self.filhos:
-			filho.imprime_no_com_custo(altura_atual, solucao)
+			filho.imprime_no_com_custo(altura_atual, solucao, resposta)
 		altura_atual -= 1
 
 	def imprime_no(self, altura_atual, solucao):

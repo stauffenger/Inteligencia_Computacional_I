@@ -23,7 +23,7 @@ def busca_ordenada(lista_nos, tipo_de_grafo):
 			no_candidato.expandir_ordenada(lista_nos, lista_de_abertos, lista_de_fechados)
 			no_candidato.adiciona_filhos_na_fila_de_abertos(lista_de_abertos, lista_de_fechados)
 		
-	arvore_busca_ordenada.imprime_arvore(tipo_de_grafo)
+	arvore_busca_ordenada.imprime_arvore(tipo_de_grafo, resposta)
 	return sucesso, resposta
 
 grafo_com_custo_exemplo_1 = {}
