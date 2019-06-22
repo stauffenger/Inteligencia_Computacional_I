@@ -13,14 +13,14 @@ def busca_ordenada(lista_nos, tipo_de_grafo):
 	grafo_ic_1.inicializar_fila_abertos(lista_nos, lista_de_abertos)
 	arvore_busca_ordenada = lista_de_abertos[0]
 
-	while  (lista_de_abertos != []):
+	while not(sucesso) and (lista_de_abertos != []):
 		no_candidato = arvore_busca_ic_1.remove_elemento_de_menor_custo_da_lista(lista_de_abertos)
 		lista_de_fechados.append(no_candidato)
-		no_candidato.expandir_ordenada(lista_nos, lista_de_abertos, lista_de_fechados)
-		if no_candidato.filho_eh_solucao(tipo_de_grafo):
+		if no_candidato.eh_solucao(tipo_de_grafo):
 			sucesso = True
-			resposta = no_candidato.no_solucao(tipo_de_grafo)
+			resposta = no_candidato
 		else:
+			no_candidato.expandir_ordenada(lista_nos, lista_de_abertos, lista_de_fechados)
 			no_candidato.adiciona_filhos_na_fila_de_abertos(lista_de_abertos, lista_de_fechados)
 		
 	arvore_busca_ordenada.imprime_arvore(tipo_de_grafo)
