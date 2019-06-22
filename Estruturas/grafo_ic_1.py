@@ -76,12 +76,12 @@ def inicializar_grafo_sem_custo(grafo, tipo_de_grafo):
 			alfabeto += 1
 		definir_caminho_do_grafo(grafo, TipoDeGrafo.MODELO_SEM_CUSTO_1)
 
-def inicializar_pilha_abertos_sem_custo(grafo, pilha_de_abertos):
-	no_raiz = arvore_busca_ic_1.ArvoreBusca(grafo["A"].nome, [], None)
+def inicializar_pilha_abertos(grafo, pilha_de_abertos):
+	no_raiz = arvore_busca_ic_1.ArvoreBusca(grafo["A"].nome, [], 0)
 	pilha_de_abertos.append(no_raiz)
 
-def inicializar_fila_abertos_sem_custo(grafo, fila_de_abertos):
-	no_raiz = arvore_busca_ic_1.ArvoreBusca(grafo["A"].nome, [], None)
+def inicializar_fila_abertos(grafo, fila_de_abertos):
+	no_raiz = arvore_busca_ic_1.ArvoreBusca(grafo["A"].nome, [], 0)
 	fila_de_abertos.insert(0, no_raiz)
 
 class NoGrafo:
@@ -90,15 +90,15 @@ class NoGrafo:
 		self.lista_de_ligacoes = []
 
 	def definir_ligacao_com_custo(self, ligacao_a_adicionar, custo_do_caminho):
-		self.lista_de_ligacoes.extend([ligacao_a_adicionar, custo_do_caminho])
+		self.lista_de_ligacoes.append([ligacao_a_adicionar, custo_do_caminho])
 
 def definir_caminho_do_grafo_com_custo(grafo, tipo_de_grafo):
 	if tipo_de_grafo == TipoDeGrafo.MODELO_COM_CUSTO_1:
 		for nome, no in grafo.items():
 			if nome == "A":
 				no.definir_ligacao_com_custo(grafo["B"], 9)
-				no.definir_ligacao_com_custo(grafo["D"], 13)
 				no.definir_ligacao_com_custo(grafo["C"], 5)
+				no.definir_ligacao_com_custo(grafo["D"], 13)
 			elif nome == "B":
 				no.definir_ligacao_com_custo(grafo["A"], 9)
 				no.definir_ligacao_com_custo(grafo["D"], 3)
@@ -119,8 +119,8 @@ def definir_caminho_do_grafo_com_custo(grafo, tipo_de_grafo):
 				no.definir_ligacao_com_custo(grafo["C"], 12)
 				no.definir_ligacao_com_custo(grafo["G"], 10)
 			elif nome == "G":
-				no.definir_ligacao_com_custo(grafo["E"], 7)
 				no.definir_ligacao_com_custo(grafo["D"], 14)
+				no.definir_ligacao_com_custo(grafo["E"], 7)
 				no.definir_ligacao_com_custo(grafo["F"], 10)
 	elif tipo_de_grafo == TipoDeGrafo.MODELO_COM_CUSTO_2:
 		for nome, no in grafo.items():
@@ -156,10 +156,10 @@ def definir_caminho_do_grafo_com_custo(grafo, tipo_de_grafo):
 				no.definir_ligacao_com_custo(grafo["D"], 10)
 				no.definir_ligacao_com_custo(grafo["F"], 17)
 
-def inicializar_grafo_com_custo(grafo):
+def inicializar_grafo_com_custo(grafo, tipo_de_grafo):
 	alfabeto = ord("A")
 	for i in range(7):
 		nome = chr(alfabeto)
 		grafo[nome] = NoGrafo(nome)
 		alfabeto += 1
-	definir_caminho_do_grafo(grafo, TipoDeGrafo.MODELO_COM_CUSTO_1)
+	definir_caminho_do_grafo(grafo, tipo_de_grafo)
