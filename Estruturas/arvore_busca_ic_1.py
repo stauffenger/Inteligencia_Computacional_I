@@ -1,6 +1,5 @@
 espaco = "| "
 import grafo_ic_1
-from itertools import zip_longest
 
 class ArvoreBusca:
 	def __init__(self, nome, filhos, custo_parcial):
