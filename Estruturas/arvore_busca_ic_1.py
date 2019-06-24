@@ -1,5 +1,10 @@
 espaco = "| "
 import grafo_ic_1
+from enum import Enum
+
+class TipoDeBusca(Enum):
+	GULOSA = 0
+	A_ESTRELA = 1
 
 class ArvoreBusca:
 	def __init__(self, nome, filhos, custo_parcial):
@@ -86,16 +91,16 @@ class ArvoreBusca:
 				self.filhos.append(novo_no)
 		return no_com_maior_custo
 
-	def expandir_gulosa_e_adiciona_filhos_na_lista_de_abertos(self, grafo, lista_de_abertos, lista_de_fechados, tipo_de_grafo):
+	def expandir_informada_e_adiciona_filhos_na_lista_de_abertos(self, grafo, lista_de_abertos, lista_de_fechados, tipo_de_grafo, tipo_de_busca):
 		no_grafo = grafo[self.nome]
 
 		if self.filhos == []:
 			for no, custo in no_grafo.lista_de_ligacoes:
 				custo_parcial_novo_no = self.custo_parcial + custo
 				novo_no = ArvoreBusca(no.nome, [], custo_parcial_novo_no)
-				self.expande_e_adiciona_filho_na_lista_de_abertos(novo_no, lista_de_abertos, lista_de_fechados, tipo_de_grafo)
+				self.expande_e_adiciona_filho_na_lista_de_abertos(novo_no, lista_de_abertos, lista_de_fechados, tipo_de_grafo, tipo_de_busca)
 
-	def expande_e_adiciona_filho_na_lista_de_abertos(self, novo_no, lista_de_abertos, lista_de_fechados, tipo_de_grafo):
+	def expande_e_adiciona_filho_na_lista_de_abertos(self, novo_no, lista_de_abertos, lista_de_fechados, tipo_de_grafo, tipo_de_busca):
 		ja_existe = self.verifica_se_esta_nas_listas(novo_no.nome, lista_de_abertos, lista_de_fechados)
 		if ja_existe == False:
 			lista_de_abertos.append(novo_no)
@@ -103,15 +108,18 @@ class ArvoreBusca:
 		else:
 			no_esta_fechado = self.verifica_se_esta_na_lista(novo_no.nome, lista_de_fechados)
 			if no_esta_fechado == False:
-				self.expande_e_mantem_item_melhor_avaliado(novo_no, lista_de_abertos, tipo_de_grafo)
+				self.expande_e_mantem_item_melhor_avaliado(novo_no, lista_de_abertos, tipo_de_grafo, tipo_de_busca)
 
-	def expande_e_mantem_item_melhor_avaliado(self, novo_no, lista_de_abertos, tipo_de_grafo):
+	def expande_e_mantem_item_melhor_avaliado(self, novo_no, lista_de_abertos, tipo_de_grafo, tipo_de_busca):
 		no_antigo = None
 		for no_aberto in lista_de_abertos:
 			if no_aberto and no_aberto.nome == novo_no.nome:
 				no_antigo = no_aberto
 		avaliacao_no_atual = novo_no.avaliacao_heuristica(tipo_de_grafo)
 		avaliacao_no_antigo = no_antigo.avaliacao_heuristica(tipo_de_grafo)
+		if tipo_de_busca == TipoDeBusca.A_ESTRELA:
+			avaliacao_no_atual += novo_no.custo_parcial
+			avaliacao_no_antigo += no_antigo.custo_parcial
 		if avaliacao_no_atual < avaliacao_no_antigo:
 			lista_de_abertos.remove(no_antigo)
 			lista_de_abertos.append(novo_no)
@@ -260,12 +268,16 @@ def remove_elemento_de_menor_custo_da_lista(lista):
 		lista.remove(elemento_de_menor_custo)
 		return elemento_de_menor_custo
 
-def remove_elemento_de_melhor_avaliacao_da_lista(lista, tipo_de_grafo):
+def remove_elemento_de_melhor_avaliacao_da_lista(lista, tipo_de_grafo, tipo_de_busca):
 	if lista != []:
 		elemento_melhor_avaliado = lista[0]
 		melhor_avaliacao = elemento_melhor_avaliado.avaliacao_heuristica(tipo_de_grafo)
+		if tipo_de_busca == TipoDeBusca.A_ESTRELA:
+			melhor_avaliacao += elemento_melhor_avaliado.custo_parcial
 		for elemento in lista:
 			avaliacao_elemento_atual = elemento.avaliacao_heuristica(tipo_de_grafo)
+			if tipo_de_busca == TipoDeBusca.A_ESTRELA:
+				avaliacao_elemento_atual += elemento.custo_parcial
 			if avaliacao_elemento_atual < melhor_avaliacao:
 				elemento_melhor_avaliado = elemento
 				melhor_avaliacao = avaliacao_elemento_atual
